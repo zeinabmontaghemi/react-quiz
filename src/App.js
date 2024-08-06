@@ -13,7 +13,7 @@ const initialState = {
 
 function reducer(state, action) {
   switch (action.type) {
-    case "dateReceived":
+    case "dataReceived":
       return {
         ...state,
         questions: action.payload,
@@ -38,7 +38,7 @@ export default function App() {
     fetch("http://localhost:8000/questions")
       .then((res) => res.json())
       .then((data) => dispatch({ type: "dataReceived", payload: data }))
-      .catch(() => dispatch({ type: "dataFailed" }));
+      .catch((err) => dispatch({ type: "dataFailed" }));
   }, []);
   return (
     <div className="app">
