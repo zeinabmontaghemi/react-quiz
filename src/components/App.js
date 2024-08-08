@@ -121,6 +121,7 @@ export default function App() {
             points={points}
             maxPossiblePoints={maxPossiblePoints}
             highScore={highscore}
+            dispatch={dispatch}
           />
         )}
       </Main>
