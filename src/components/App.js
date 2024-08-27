@@ -91,6 +91,7 @@ export default function App() {
   ] = useReducer(reducer, initialState);
 
   const numQuestions = questions.length;
+  console.log(numQuestions);
   const maxPossiblePoints = questions.reduce(
     (prev, cur) => prev + cur.points,
     0
