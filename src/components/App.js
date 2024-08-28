@@ -90,12 +90,27 @@ export default function App() {
     dispatch,
   ] = useReducer(reducer, initialState);
 
-  const numQuestions = questions.length;
-  const maxPossiblePoints = questions.reduce(
-    (prev, cur) => prev + cur.points,
-    0
-  );
+  // const numQuestions = questions.length;
+  // const maxPossiblePoints = questions.reduce(
+  //   (prev, cur) => prev + cur.points,
+  //   0
+  // );
+  const numQuestions = Array.isArray(questions) ? questions.length : 0;
+  const maxPossiblePoints = Array.isArray(questions)
+    ? questions.reduce((prev, cur) => prev + cur.points, 0)
+    : 0;
 
+  // useEffect(function () {
+  //   const url =
+  //     process.env.NODE_ENV === "development"
+  //       ? "http://localhost:8000/questions"
+  //       : "/api/questions";
+
+  //   fetch(url)
+  //     .then((res) => res.json())
+  //     .then((data) => dispatch({ type: "dataReceived", payload: data }))
+  //     .catch((err) => dispatch({ type: "dataFailed" }));
+  // }, []);
   useEffect(function () {
     const url =
       process.env.NODE_ENV === "development"
@@ -104,9 +119,19 @@ export default function App() {
 
     fetch(url)
       .then((res) => res.json())
-      .then((data) => dispatch({ type: "dataReceived", payload: data }))
-      .catch((err) => dispatch({ type: "dataFailed" }));
+      .then((data) => {
+        if (data.questions && Array.isArray(data.questions)) {
+          dispatch({ type: "dataReceived", payload: data.questions });
+        } else {
+          dispatch({ type: "dataFailed" });
+        }
+      })
+      .catch((err) => {
+        console.error("Fetch error:", err);
+        dispatch({ type: "dataFailed" });
+      });
   }, []);
+
   return (
     <div className="app">
       <Header />
