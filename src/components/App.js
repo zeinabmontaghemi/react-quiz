@@ -97,7 +97,10 @@ export default function App() {
   );
 
   useEffect(function () {
-    const url = "/api/questions";
+    const url =
+      process.env.NODE_ENV === "development"
+        ? "http://localhost:8000/questions"
+        : "/.netlify/functions/questions";
 
     fetch(url)
       .then((res) => res.json())
