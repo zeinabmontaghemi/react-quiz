@@ -118,16 +118,22 @@ export default function App() {
         : "/api/questions";
 
     fetch(url)
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`HTTP error! Status: ${res.status}`);
+        }
+        return res.json();
+      })
       .then((data) => {
+        console.log("Fetched data:", data); // Log the data
         if (data.questions && Array.isArray(data.questions)) {
           dispatch({ type: "dataReceived", payload: data.questions });
         } else {
-          dispatch({ type: "dataFailed" });
+          throw new Error("Unexpected data format");
         }
       })
       .catch((err) => {
-        console.error("Fetch error:", err);
+        console.error("Fetch error:", err); // Log the error
         dispatch({ type: "dataFailed" });
       });
   }, []);
