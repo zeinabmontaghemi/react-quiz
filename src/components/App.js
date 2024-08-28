@@ -100,7 +100,7 @@ export default function App() {
     const url =
       process.env.NODE_ENV === "development"
         ? "http://localhost:8000/questions"
-        : "/.netlify/functions/questions";
+        : "/api/questions";
 
     fetch(url)
       .then((res) => res.json())

@@ -1,4 +1,4 @@
-const questions = require("../src/data/questions.json");
+const questions = require("../../src/data/questions.json");
 
 exports.handler = async function (event, context) {
   return {
