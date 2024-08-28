@@ -97,10 +97,8 @@ export default function App() {
   );
 
   useEffect(function () {
-    const url =
-      process.env.NODE_ENV === "development"
-        ? "http://localhost:8000/questions"
-        : "/api/questions";
+    const url = "/api/questions";
+
     fetch(url)
       .then((res) => res.json())
       .then((data) => dispatch({ type: "dataReceived", payload: data }))
