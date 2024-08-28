@@ -1,8 +1,8 @@
-const questions = require("../../src/data/questions.json");
+import questions from "../../src/data/questions.json";
 
-exports.handler = async function (event, context) {
+export async function handler(event, context) {
   return {
     statusCode: 200,
     body: JSON.stringify(questions),
   };
-};
+}
